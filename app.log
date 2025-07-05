@@ -1,0 +1,39 @@
+nohup: ignoring input
+/workspace/venv/lib/python3.13/site-packages/langchain/chat_models/__init__.py:33: LangChainDeprecationWarning: Importing chat models from langchain is deprecated. Importing from langchain will no longer be supported as of langchain==0.2.0. Please import from langchain-community instead:
+
+`from langchain_community.chat_models import ChatOpenAI`.
+
+To install langchain-community run `pip install -U langchain-community`.
+  warnings.warn(
+/workspace/venv/lib/python3.13/site-packages/langchain/chat_models/__init__.py:33: LangChainDeprecationWarning: Importing chat models from langchain is deprecated. Importing from langchain will no longer be supported as of langchain==0.2.0. Please import from langchain-community instead:
+
+`from langchain_community.chat_models import ChatOpenAI`.
+
+To install langchain-community run `pip install -U langchain-community`.
+  warnings.warn(
+🛡️  Intratech Cybersecurity Suite
+========================================
+🔍 Performing startup checks...
+
+✅ Python version 3.13.3 is compatible
+✅ flask is installed
+✅ flask-socketio is installed
+✅ requests is installed
+✅ openai is installed
+✅ langchain is installed
+✅ rich is installed
+✅ colorama is installed
+✅ pandas is installed
+✅ Directory 'logs' is ready
+✅ Directory 'uploads' is ready
+✅ Directory 'templates' is ready
+✅ OpenAI API key is configured
+
+✅ All startup checks passed!
+🎯 Ready to launch the cybersecurity suite...
+
+🛡️  Starting Intratech Cybersecurity Suite...
+🌐 Web interface will be available at: http://localhost:5000
+🔄 Initializing agents and starting server...
+
+❌ Unexpected error: Attribute name 'metadata' is reserved when using the Declarative API.
