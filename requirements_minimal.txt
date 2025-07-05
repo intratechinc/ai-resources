@@ -1,0 +1,30 @@
+# Core Framework Dependencies
+flask==3.0.0
+flask-socketio==5.3.6
+flask-cors==4.0.0
+requests==2.31.0
+python-socketio==5.10.0
+eventlet==0.33.3
+
+# AI/ML Dependencies  
+openai==1.40.0
+langchain==0.2.16
+langchain-community==0.2.12
+langchain-openai==0.1.23
+
+# Database
+sqlalchemy==2.0.23
+
+# Security & Encryption
+cryptography==41.0.8
+
+# Network & Web
+beautifulsoup4==4.12.2
+lxml==4.9.3
+
+# Utilities
+python-dotenv==1.0.0
+click==8.1.7
+rich==13.7.0
+pydantic==2.5.1
+colorama==0.4.6
