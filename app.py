@@ -33,7 +33,7 @@ from utils.logger import setup_logger
 # Initialize Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 CORS(app)
 
 # Setup logging
