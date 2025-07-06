@@ -551,110 +551,146 @@
                 const agentConfigs = {
                     threat_intelligence: {
                         icon: 'fas fa-shield-virus',
-                        description: 'Analyzes threats, IOCs, and threat actor intelligence',
+                        description: 'Analyzes threats, IOCs, and threat actor intelligence using Shodan, VirusTotal, and OSINT',
                         tasks: [
-                            'Analyze IP address for threats',
-                            'Check domain reputation',
-                            'Investigate file hash',
-                            'Research threat actor',
-                            'IOC correlation analysis',
-                            'Threat hunting query'
+                            'Analyze IP address 8.8.8.8 for threats and geolocation',
+                            'Check domain reputation for suspicious.com',
+                            'Investigate file hash with VirusTotal lookup',
+                            'Research threat actor APT groups and TTPs',
+                            'IOC correlation analysis across multiple sources',
+                            'Threat hunting query with Shodan search',
+                            'Dark web monitoring for leaked credentials',
+                            'Malware family attribution analysis',
+                            'Threat landscape assessment report',
+                            'Cyber threat intelligence briefing'
                         ]
                     },
                     vulnerability_scanner: {
                         icon: 'fas fa-bug',
-                        description: 'Scans for vulnerabilities and security weaknesses',
+                        description: 'Scans for vulnerabilities using Nmap, Nuclei, SSL analyzers, and security auditing tools',
                         tasks: [
-                            'Scan IP range for vulnerabilities',
-                            'Web application security scan',
-                            'Network port scan',
-                            'SSL/TLS configuration check',
-                            'CVE lookup and analysis',
-                            'Security configuration audit'
+                            'Nmap port scan on 192.168.1.0/24 network',
+                            'Nuclei vulnerability scan on https://example.com',
+                            'SSL/TLS certificate analysis and security check',
+                            'Web application security headers audit',
+                            'CVE lookup and CVSS scoring analysis',
+                            'Network service enumeration and fingerprinting',
+                            'WordPress security assessment',
+                            'Database security configuration review',
+                            'Cloud infrastructure security scan',
+                            'API endpoint security testing'
                         ]
                     },
                     penetration_testing: {
                         icon: 'fas fa-user-ninja',
-                        description: 'Performs security testing and attack simulation',
+                        description: 'Performs ethical hacking, penetration testing, and security assessments',
                         tasks: [
-                            'Reconnaissance on target',
-                            'Vulnerability exploitation test',
-                            'Social engineering assessment',
-                            'Wireless security testing',
-                            'Web application penetration test',
-                            'Network security assessment'
+                            'Web application penetration test with SQL injection',
+                            'Network reconnaissance and enumeration',
+                            'Directory traversal and file discovery scan',
+                            'Social engineering assessment and phishing simulation',
+                            'Wireless network security testing (WPA/WEP)',
+                            'Privilege escalation testing and exploitation',
+                            'Buffer overflow and memory corruption testing',
+                            'Active Directory security assessment',
+                            'Cloud penetration testing (AWS/Azure)',
+                            'Mobile application security testing'
                         ]
                     },
                     incident_response: {
                         icon: 'fas fa-exclamation-triangle',
-                        description: 'Handles security incidents and emergency response',
+                        description: 'Handles security incidents, breaches, and emergency response coordination',
                         tasks: [
-                            'Analyze security incident',
-                            'Containment strategy planning',
-                            'Forensic evidence collection',
-                            'Impact assessment',
-                            'Recovery planning',
-                            'Incident documentation'
+                            'Ransomware incident response and containment',
+                            'Data breach investigation and forensics',
+                            'Malware outbreak containment strategy',
+                            'DDoS attack mitigation and analysis',
+                            'Insider threat investigation',
+                            'Business continuity planning',
+                            'Evidence preservation and chain of custody',
+                            'Stakeholder communication during incidents',
+                            'Post-incident analysis and lessons learned',
+                            'Incident response playbook execution'
                         ]
                     },
                     osint: {
                         icon: 'fas fa-search',
-                        description: 'Conducts open source intelligence gathering',
+                        description: 'Conducts open source intelligence gathering and digital investigations',
                         tasks: [
-                            'Domain intelligence gathering',
-                            'Social media investigation',
-                            'Email address investigation',
-                            'Company information research',
-                            'Breach database lookup',
-                            'Dark web monitoring'
+                            'Domain and subdomain enumeration analysis',
+                            'Email address OSINT and breach database lookup',
+                            'Social media intelligence gathering',
+                            'Company and employee information research',
+                            'Dark web monitoring for stolen credentials',
+                            'Cryptocurrency transaction analysis',
+                            'Geolocation and metadata analysis',
+                            'Threat actor profiling and attribution',
+                            'Brand monitoring and impersonation detection',
+                            'Supply chain risk assessment'
                         ]
                     },
                     malware_analysis: {
                         icon: 'fas fa-virus',
-                        description: 'Analyzes malicious files and software',
+                        description: 'Analyzes malicious files, malware families, and threat samples',
                         tasks: [
-                            'Static malware analysis',
-                            'Dynamic behavior analysis',
-                            'File hash reputation check',
-                            'Sandbox analysis request',
-                            'Malware family identification',
-                            'IOC extraction from sample'
+                            'Static malware analysis and file hashing',
+                            'Dynamic sandbox behavior analysis',
+                            'VirusTotal multi-engine malware scanning',
+                            'Malware family classification and attribution',
+                            'IOC extraction and signature generation',
+                            'Reverse engineering and code analysis',
+                            'Command and control (C2) infrastructure analysis',
+                            'Payload delivery mechanism investigation',
+                            'Ransomware strain identification',
+                            'Mobile malware analysis (APK/IPA)'
                         ]
                     },
                     network_security: {
                         icon: 'fas fa-network-wired',
-                        description: 'Monitors network traffic and security',
+                        description: 'Monitors network traffic, analyzes connections, and detects intrusions',
                         tasks: [
-                            'Network traffic analysis',
-                            'Intrusion detection analysis',
-                            'Firewall log review',
-                            'Network anomaly detection',
-                            'Bandwidth usage analysis',
-                            'Network topology mapping'
+                            'Network traffic analysis with packet capture',
+                            'Active network connections monitoring',
+                            'Intrusion detection system (IDS) analysis',
+                            'Firewall rule optimization and log review',
+                            'Network anomaly and DDoS detection',
+                            'Bandwidth usage and performance analysis',
+                            'Network topology discovery and mapping',
+                            'Wireless network security assessment',
+                            'VPN security configuration review',
+                            'Network segmentation effectiveness testing'
                         ]
                     },
                     compliance: {
                         icon: 'fas fa-clipboard-check',
-                        description: 'Checks regulatory compliance and policies',
+                        description: 'Ensures regulatory compliance and security policy adherence',
                         tasks: [
-                            'SOC 2 compliance check',
-                            'GDPR compliance assessment',
-                            'HIPAA security evaluation',
-                            'PCI DSS compliance scan',
-                            'ISO 27001 gap analysis',
-                            'Security policy review'
+                            'SOC 2 Type II compliance assessment',
+                            'GDPR data protection compliance audit',
+                            'HIPAA security and privacy evaluation',
+                            'PCI DSS payment security compliance scan',
+                            'ISO 27001 information security gap analysis',
+                            'NIST Cybersecurity Framework assessment',
+                            'Security policy review and recommendations',
+                            'Risk assessment and mitigation planning',
+                            'Vendor security assessment questionnaire',
+                            'Regulatory reporting and documentation'
                         ]
                     },
                     forensics: {
                         icon: 'fas fa-fingerprint',
-                        description: 'Performs digital forensics and investigation',
+                        description: 'Performs digital forensics, evidence analysis, and cyber investigations',
                         tasks: [
-                            'Digital evidence analysis',
-                            'Timeline reconstruction',
-                            'File system analysis',
-                            'Memory dump analysis',
-                            'Network forensics',
-                            'Mobile device forensics'
+                            'Digital evidence acquisition and preservation',
+                            'File system forensics and deleted file recovery',
+                            'Memory dump analysis and volatile data extraction',
+                            'Network forensics and traffic reconstruction',
+                            'Mobile device forensics (iOS/Android)',
+                            'Timeline analysis and event correlation',
+                            'Malware forensics and reverse engineering',
+                            'Email forensics and metadata analysis',
+                            'Cloud forensics and log analysis',
+                            'Legal evidence documentation and chain of custody'
                         ]
                     }
                 };
@@ -946,9 +982,9 @@
                                 <option value="analyze">Analyze security threat</option>
                                 <option value="scan">Perform security scan</option>
                             </select>
-                            <button class="execute-btn" onclick="alert('Agent: ${agent.name} - Task execution requires Socket.IO connection')">
-                                <i class="fas fa-play"></i> Execute Task
-                            </button>
+                                                     <button class="execute-btn" onclick="executeFallbackTask('${agentId}', '${agent.name}')">
+                             <i class="fas fa-play"></i> Execute Task
+                         </button>
                         </div>
                     `;
                     agentsGrid.appendChild(card);
@@ -961,9 +997,65 @@
                     <div style="color: #f56565; text-align: center; padding: 2rem;">
                         Error loading agents: ${error.message}
                     </div>
-                `;
-            }
-        }
+                                 `;
+             }
+         }
+         
+         // Fallback task execution function
+         async function executeFallbackTask(agentId, agentName) {
+             const taskSelect = document.querySelector(`#agentsGrid .agent-card:nth-child(${Object.keys(agents).indexOf(agentId) + 1}) .task-dropdown`);
+             if (!taskSelect) return;
+             
+             const selectedTask = taskSelect.value;
+             if (!selectedTask) {
+                 alert('Please select a task first');
+                 return;
+             }
+             
+             try {
+                 // Show loading state
+                 const executeBtn = taskSelect.parentElement.querySelector('.execute-btn');
+                 const originalText = executeBtn.innerHTML;
+                 executeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Executing...';
+                 executeBtn.disabled = true;
+                 
+                 // Execute task via API
+                 const response = await fetch('/api/execute-task', {
+                     method: 'POST',
+                     headers: {
+                         'Content-Type': 'application/json'
+                     },
+                     body: JSON.stringify({
+                         agent_type: agentId,
+                         task_description: selectedTask,
+                         user_id: 'user_' + Math.random().toString(36).substr(2, 9)
+                     })
+                 });
+                 
+                 const result = await response.json();
+                 
+                 // Show result
+                 if (result.success) {
+                     alert(`Task executed successfully!\n\nAgent: ${agentName}\nTask: ${selectedTask}\n\nResult: ${result.response.substring(0, 200)}...`);
+                 } else {
+                     alert(`Task execution failed: ${result.error || 'Unknown error'}`);
+                 }
+                 
+                 // Reset button
+                 executeBtn.innerHTML = originalText;
+                 executeBtn.disabled = false;
+                 taskSelect.value = '';
+                 
+             } catch (error) {
+                 console.error('Task execution error:', error);
+                 alert(`Error executing task: ${error.message}`);
+                 
+                 // Reset button
+                 const executeBtn = taskSelect.parentElement.querySelector('.execute-btn');
+                 executeBtn.innerHTML = '<i class="fas fa-play"></i> Execute Task';
+                 executeBtn.disabled = false;
+             }
+         }
     </script>
 </body>
 </html>

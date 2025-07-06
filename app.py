@@ -307,6 +307,56 @@ def get_logs():
     logs = []  # Fetch from database
     return jsonify(logs)
 
+@app.route('/api/execute-task', methods=['POST'])
+def execute_task_api():
+    """Execute a task via REST API"""
+    try:
+        data = request.get_json()
+        agent_type = data.get('agent_type')
+        task_description = data.get('task_description')
+        user_id = data.get('user_id', 'anonymous')
+        
+        if not agent_type or not task_description:
+            return jsonify({'success': False, 'error': 'Missing agent_type or task_description'}), 400
+        
+        if agent_type not in cyber_suite.agents:
+            return jsonify({'success': False, 'error': f'Agent {agent_type} not found'}), 404
+        
+        agent = cyber_suite.agents[agent_type]
+        
+        # Create a task execution prompt
+        task_prompt = f"""
+        You are a professional cybersecurity {agent.name.lower()}. 
+        Execute the following task: {task_description}
+        
+        Provide a detailed professional response including:
+        1. Task understanding and approach
+        2. Analysis methodology 
+        3. Key findings or recommendations
+        4. Next steps or follow-up actions
+        5. Any security considerations
+        
+        If this task requires specific inputs (like IP addresses, domains, files), 
+        explain what information you would need and provide an example analysis.
+        
+        Use your available cybersecurity tools when appropriate.
+        """
+        
+        # Execute the task
+        response = agent.process_query(task_prompt, user_id)
+        
+        return jsonify({
+            'success': True,
+            'agent_type': agent_type,
+            'task_description': task_description,
+            'response': response,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Error executing task via API: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
 @app.route('/health')
 def health_check():
     """Health check endpoint"""
