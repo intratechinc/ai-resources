@@ -261,6 +261,18 @@ def index():
     """Main dashboard"""
     return render_template('index.html')
 
+@app.route('/debug')
+def debug():
+    """Debug page for testing"""
+    with open('debug_test.html', 'r') as f:
+        return f.read()
+
+@app.route('/simple')
+def simple():
+    """Simple test page"""
+    with open('simple_test.html', 'r') as f:
+        return f.read()
+
 @app.route('/api/agents')
 def get_agents():
     """Get all agents status"""

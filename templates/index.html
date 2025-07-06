@@ -392,7 +392,12 @@
     <div class="main-container">
         <div class="agents-section">
             <h2 style="margin-bottom: 1.5rem; color: #4fd1c7;">🤖 Cybersecurity Agents</h2>
-            <div class="agents-grid" id="agentsGrid"></div>
+            <div class="agents-grid" id="agentsGrid">
+                <!-- Debug: This should be replaced by JavaScript -->
+                <div style="color: #a0aec0; text-align: center; padding: 2rem;">
+                    Loading agents...
+                </div>
+            </div>
         </div>
 
         <div class="chat-panel">
@@ -493,7 +498,7 @@
                 this.socket.on('connect', () => {
                     this.updateConnectionStatus(true);
                     this.addSystemMessage('Connected to Intratech Cybersecurity Suite');
-                    this.loadAgents();
+                    // Don't load agents here - already loaded in constructor
                 });
 
                 this.socket.on('disconnect', () => {
@@ -526,8 +531,11 @@
 
             async loadAgents() {
                 try {
+                    console.log('Loading agents...');
                     const response = await fetch('/api/agents');
+                    console.log('Response status:', response.status);
                     const agents = await response.json();
+                    console.log('Agents loaded:', agents);
                     this.agents = agents;
                     this.renderAgents();
                 } catch (error) {
@@ -537,6 +545,7 @@
             }
 
             renderAgents() {
+                console.log('Rendering agents...');
                 this.agentsGrid.innerHTML = '';
                 
                 const agentConfigs = {
@@ -652,6 +661,8 @@
 
                 Object.entries(this.agents).forEach(([agentId, agent]) => {
                     if (agentId === 'coordinator') return; // Skip coordinator in main grid
+                    
+                    console.log(`Rendering agent: ${agentId}`, agent);
                     
                     const config = agentConfigs[agentId] || {
                         icon: 'fas fa-robot',
@@ -884,8 +895,75 @@
         // Initialize the application
         let cybersecuritySuite;
         document.addEventListener('DOMContentLoaded', () => {
-            cybersecuritySuite = new CybersecuritySuite();
+            console.log('DOM loaded, initializing CybersecuritySuite...');
+            try {
+                cybersecuritySuite = new CybersecuritySuite();
+                console.log('CybersecuritySuite initialized successfully');
+            } catch (error) {
+                console.error('Error initializing CybersecuritySuite:', error);
+                // Fallback: try to load agents directly
+                loadAgentsFallback();
+            }
         });
+        
+        // Fallback function to load agents without Socket.IO
+        async function loadAgentsFallback() {
+            console.log('Using fallback agent loading...');
+            try {
+                const response = await fetch('/api/agents');
+                const agents = await response.json();
+                console.log('Fallback: Agents loaded:', agents);
+                
+                const agentsGrid = document.getElementById('agentsGrid');
+                agentsGrid.innerHTML = '';
+                
+                Object.entries(agents).forEach(([agentId, agent]) => {
+                    if (agentId === 'coordinator') return;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'agent-card';
+                    card.innerHTML = `
+                        <div class="agent-header">
+                            <div class="agent-info">
+                                <i class="fas fa-robot agent-icon"></i>
+                                <div>
+                                    <div class="agent-name">${agent.name}</div>
+                                    <div class="agent-status">
+                                        <div class="status-indicator status-${agent.status}"></div>
+                                        ${agent.status.toUpperCase()}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="agent-description">Professional cybersecurity agent</div>
+                        <div class="agent-capabilities">
+                            <span class="capability-tag">AI Analysis</span>
+                            <span class="capability-tag">Real-time Processing</span>
+                        </div>
+                        <div class="task-selector">
+                            <select class="task-dropdown">
+                                <option value="">Select a task...</option>
+                                <option value="analyze">Analyze security threat</option>
+                                <option value="scan">Perform security scan</option>
+                            </select>
+                            <button class="execute-btn" onclick="alert('Agent: ${agent.name} - Task execution requires Socket.IO connection')">
+                                <i class="fas fa-play"></i> Execute Task
+                            </button>
+                        </div>
+                    `;
+                    agentsGrid.appendChild(card);
+                });
+                
+                console.log('Fallback: Agent cards rendered');
+            } catch (error) {
+                console.error('Fallback loading failed:', error);
+                document.getElementById('agentsGrid').innerHTML = `
+                    <div style="color: #f56565; text-align: center; padding: 2rem;">
+                        Error loading agents: ${error.message}
+                    </div>
+                `;
+            }
+        }
     </script>
 </body>
 </html>

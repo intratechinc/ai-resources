@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Agent Test</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a202c;
+            color: white;
+            padding: 20px;
+        }
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 20px;
+        }
+        .agent-card {
+            background: #2d3748;
+            border: 2px solid #4fd1c7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .agent-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4fd1c7;
+        }
+        .agent-status {
+            color: #48bb78;
+            margin: 5px 0;
+        }
+        .debug-info {
+            background: #4a5568;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🛡️ Simple Agent Test</h1>
+    <div id="debug-info" class="debug-info">Starting...</div>
+    
+    <h2>🤖 Agents Grid</h2>
+    <div class="agents-grid" id="agentsGrid">
+        <!-- Agent cards will be inserted here -->
+    </div>
+
+    <script>
+        console.log('Simple test script starting...');
+        
+        function updateDebug(message) {
+            const debugDiv = document.getElementById('debug-info');
+            debugDiv.innerHTML = message;
+            console.log(message);
+        }
+        
+        async function loadAndRenderAgents() {
+            try {
+                updateDebug('Fetching agents from API...');
+                
+                const response = await fetch('/api/agents');
+                console.log('Response:', response);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const agents = await response.json();
+                console.log('Agents data:', agents);
+                
+                updateDebug(`Loaded ${Object.keys(agents).length} agents. Rendering...`);
+                
+                const agentsGrid = document.getElementById('agentsGrid');
+                agentsGrid.innerHTML = ''; // Clear existing content
+                
+                let renderedCount = 0;
+                
+                Object.entries(agents).forEach(([agentId, agent]) => {
+                    if (agentId === 'coordinator') return; // Skip coordinator
+                    
+                    console.log(`Creating card for agent: ${agentId}`, agent);
+                    
+                    const card = document.createElement('div');
+                    card.className = 'agent-card';
+                    card.innerHTML = `
+                        <div class="agent-name">
+                            <i class="fas fa-robot"></i> ${agent.name}
+                        </div>
+                        <div class="agent-status">Status: ${agent.status}</div>
+                        <div>Active Tasks: ${agent.active_tasks}</div>
+                        <div>Last Activity: ${new Date(agent.last_activity).toLocaleString()}</div>
+                    `;
+                    
+                    agentsGrid.appendChild(card);
+                    renderedCount++;
+                });
+                
+                updateDebug(`Successfully rendered ${renderedCount} agent cards!`);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                updateDebug(`Error: ${error.message}`);
+            }
+        }
+        
+        // Start the test when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, starting agent load test...');
+            loadAndRenderAgents();
+        });
+        
+        // Also try after a short delay in case there are timing issues
+        setTimeout(() => {
+            console.log('Backup load attempt...');
+            loadAndRenderAgents();
+        }, 2000);
+    </script>
+</body>
+</html>
