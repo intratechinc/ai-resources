@@ -14,9 +14,9 @@ import time
 import json
 from enum import Enum
 
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import HumanMessage, SystemMessage
-from langchain.callbacks import StreamingStdOutCallbackHandler
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage, SystemMessage
+from langchain_core.callbacks import StreamingStdOutCallbackHandler
 
 from config import Config
 from utils.logger import setup_logger
