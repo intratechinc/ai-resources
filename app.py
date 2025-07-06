@@ -4,6 +4,9 @@ Intratech Cybersecurity Suite
 Main Application - AI-Powered Cybersecurity Command Center
 """
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit, disconnect
 from flask_cors import CORS
@@ -155,29 +158,39 @@ def handle_disconnect():
 
 @socketio.on('chat_message')
 def handle_chat_message(data):
-    """Handle incoming chat messages"""
+    """Handle chat messages with agent selection"""
     try:
-        user_id = data.get('user_id', request.sid)
+        user_id = data.get('user_id', 'anonymous')
         message = data.get('message', '')
+        agent_type = data.get('agent_type')
         
-        if not message:
-            emit('chat_response', {'error': 'Empty message'})
+        print(f"Chat message from {user_id}: {message}")
+        
+        if not message.strip():
+            emit('error', {'message': 'Empty message'})
             return
         
-        # Process message through cybersecurity suite
-        response = cyber_suite.handle_chat_message(user_id, message)
+        # If specific agent is selected, use that agent
+        if agent_type and agent_type in cyber_suite.agents:
+            agent = cyber_suite.agents[agent_type]
+            response = agent.process_query(message, user_id)
+        else:
+            # Use coordinator for general queries
+            coordinator = cyber_suite.agents.get('coordinator')
+            if coordinator:
+                response = coordinator.process_query(message, user_id)
+            else:
+                response = "No agents available to process your request."
         
-        # Send response back to client
         emit('chat_response', {
-            'user_id': user_id,
-            'message': message,
             'response': response,
+            'agent_type': agent_type or 'coordinator',
             'timestamp': datetime.now().isoformat()
         })
         
     except Exception as e:
-        logger.error(f"Error handling chat message: {e}")
-        emit('chat_response', {'error': f'Error processing message: {str(e)}'})
+        print(f"Error handling chat message: {str(e)}")
+        emit('error', {'message': f'Chat processing failed: {str(e)}'})
 
 @socketio.on('get_agent_status')
 def handle_get_agent_status():
@@ -186,32 +199,61 @@ def handle_get_agent_status():
 
 @socketio.on('execute_task')
 def handle_execute_task(data):
-    """Handle task execution request"""
+    """Handle task execution from dropdown menus"""
     try:
+        user_id = data.get('user_id', 'anonymous')
         agent_type = data.get('agent_type')
         task_type = data.get('task_type')
         parameters = data.get('parameters', {})
-        user_id = data.get('user_id', request.sid)
         
-        agent = cyber_suite.get_agent(agent_type)
-        if not agent:
-            emit('task_response', {'error': f'Agent {agent_type} not found'})
+        print(f"Executing task: {task_type} for agent: {agent_type}")
+        
+        if not agent_type or agent_type not in cyber_suite.agents:
+            emit('error', {'message': f'Agent {agent_type} not found'})
             return
         
-        # Execute task
-        task_id = agent.execute_task(task_type, parameters, user_id)
+        agent = cyber_suite.agents[agent_type]
+        task_description = parameters.get('task_description', 'Execute predefined task')
         
+        # Create a task execution prompt based on the selected task
+        task_prompt = f"""
+        You are a professional cybersecurity {agent.name.lower()}. 
+        Execute the following task: {task_description}
+        
+        Provide a detailed professional response including:
+        1. Task understanding and approach
+        2. Analysis methodology 
+        3. Key findings or recommendations
+        4. Next steps or follow-up actions
+        5. Any security considerations
+        
+        If this task requires specific inputs (like IP addresses, domains, files), 
+        explain what information you would need and provide an example analysis.
+        """
+        
+        # Execute the task
+        response = agent.process_query(task_prompt, user_id)
+        
+        # Emit response back to client
         emit('task_response', {
-            'task_id': task_id,
             'agent_type': agent_type,
             'task_type': task_type,
-            'status': 'started',
+            'task_description': task_description,
+            'response': response,
+            'status': 'completed',
+            'timestamp': datetime.now().isoformat()
+        })
+        
+        # Also emit as chat response for consistency
+        emit('chat_response', {
+            'response': response,
+            'agent_type': agent_type,
             'timestamp': datetime.now().isoformat()
         })
         
     except Exception as e:
-        logger.error(f"Error executing task: {e}")
-        emit('task_response', {'error': f'Error executing task: {str(e)}'})
+        print(f"Error executing task: {str(e)}")
+        emit('error', {'message': f'Task execution failed: {str(e)}'})
 
 # HTTP Routes
 @app.route('/')

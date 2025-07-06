@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intratech Cybersecurity Suite - AI-Powered Security Operations Center</title>
-    
-    <!-- CSS Styles -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,125 +14,198 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f1419 0%, #1a202c 100%);
+            background: linear-gradient(135deg, #0f1419 0%, #1a202c 50%, #2d3748 100%);
             color: #e2e8f0;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .header {
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(26, 32, 44, 0.95);
             padding: 1rem 2rem;
             border-bottom: 2px solid #4fd1c7;
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
         .header h1 {
-            color: #4fd1c7;
-            font-size: 1.8rem;
-            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 1rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4fd1c7;
         }
 
         .logo {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, #4fd1c7, #38b2ac);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 2rem;
+            animation: pulse 2s infinite;
         }
 
-        .container {
+        .main-container {
             display: grid;
-            grid-template-columns: 300px 1fr 300px;
-            gap: 1rem;
-            padding: 1rem;
-            max-width: 1600px;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1800px;
             margin: 0 auto;
-            min-height: calc(100vh - 80px);
         }
 
-        .sidebar {
-            background: rgba(26, 32, 44, 0.8);
-            border-radius: 12px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(79, 209, 199, 0.2);
-            height: fit-content;
-        }
-
-        .sidebar h3 {
-            color: #4fd1c7;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .agent-card {
-            background: rgba(45, 55, 72, 0.5);
-            border-radius: 8px;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            border-left: 3px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .agent-card:hover {
-            background: rgba(45, 55, 72, 0.8);
-            border-left-color: #4fd1c7;
-        }
-
-        .agent-card.active {
-            border-left-color: #48bb78;
-            background: rgba(72, 187, 120, 0.1);
-        }
-
-        .agent-card.busy {
-            border-left-color: #ed8936;
-            background: rgba(237, 137, 54, 0.1);
-        }
-
-        .agent-card.error {
-            border-left-color: #f56565;
-            background: rgba(245, 101, 101, 0.1);
-        }
-
-        .agent-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .agent-status {
-            font-size: 0.8rem;
-            color: #a0aec0;
-            margin-top: 0.25rem;
-        }
-
-        .main-content {
             background: rgba(26, 32, 44, 0.8);
             border-radius: 12px;
             padding: 1.5rem;
+            border: 2px solid rgba(79, 209, 199, 0.3);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(79, 209, 199, 0.2);
-            display: flex;
-            flex-direction: column;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        .chat-container {
-            flex: 1;
+        .agent-card:hover {
+            border-color: #4fd1c7;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 209, 199, 0.2);
+        }
+
+        .agent-card.selected {
+            border-color: #48bb78;
+            background: rgba(72, 187, 120, 0.1);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .agent-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .agent-icon {
+            font-size: 2rem;
+            color: #4fd1c7;
+        }
+
+        .agent-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .agent-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-active { background-color: #48bb78; }
+        .status-busy { background-color: #ed8936; }
+        .status-inactive { background-color: #a0aec0; }
+
+        .agent-description {
+            color: #a0aec0;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .agent-capabilities {
+            margin-bottom: 1rem;
+        }
+
+        .capability-tag {
+            display: inline-block;
+            background: rgba(79, 209, 199, 0.2);
+            color: #4fd1c7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 0.25rem 0.25rem 0.25rem 0;
+        }
+
+        .task-selector {
+            margin-top: 1rem;
+        }
+
+        .task-dropdown {
+            width: 100%;
+            background: rgba(45, 55, 72, 0.8);
+            border: 1px solid rgba(79, 209, 199, 0.3);
+            border-radius: 6px;
+            padding: 0.5rem;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .execute-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #4fd1c7, #38b2ac);
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .execute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 209, 199, 0.3);
+        }
+
+        .execute-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .chat-panel {
+            background: rgba(26, 32, 44, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid rgba(79, 209, 199, 0.3);
+            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
+            height: calc(100vh - 140px);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(79, 209, 199, 0.3);
+        }
+
+        .selected-agent-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .chat-messages {
@@ -143,15 +215,13 @@
             background: rgba(45, 55, 72, 0.3);
             border-radius: 8px;
             margin-bottom: 1rem;
-            min-height: 400px;
-            max-height: 600px;
         }
 
         .message {
             margin-bottom: 1rem;
             padding: 1rem;
             border-radius: 8px;
-            max-width: 80%;
+            max-width: 90%;
         }
 
         .message.user {
@@ -179,10 +249,6 @@
             margin-bottom: 0.5rem;
         }
 
-        .message-content {
-            line-height: 1.6;
-        }
-
         .input-container {
             display: flex;
             gap: 1rem;
@@ -197,7 +263,6 @@
             padding: 0.75rem 1rem;
             color: #e2e8f0;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
         }
 
         .input-field:focus {
@@ -213,81 +278,20 @@
             color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .send-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .send-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .status-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 0.5rem;
-        }
-
-        .status-active { background-color: #48bb78; }
-        .status-busy { background-color: #ed8936; }
-        .status-inactive { background-color: #a0aec0; }
-        .status-error { background-color: #f56565; }
-
-        .metrics-card {
-            background: rgba(45, 55, 72, 0.5);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .metric-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-label {
-            color: #a0aec0;
-            font-size: 0.9rem;
-        }
-
-        .metric-value {
-            color: #4fd1c7;
-            font-weight: 600;
         }
 
         .connection-status {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(26, 32, 44, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(79, 209, 199, 0.3);
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .connection-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #48bb78;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        .welcome-message {
-            text-align: center;
-            color: #a0aec0;
-            font-style: italic;
-            margin: 2rem 0;
+            z-index: 1001;
         }
 
         .typing-indicator {
@@ -315,23 +319,58 @@
         .typing-dot:nth-child(2) { animation-delay: 0.2s; }
         .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
         @keyframes typing {
             0%, 60%, 100% { opacity: 0.3; }
             30% { opacity: 1; }
         }
 
-        @media (max-width: 1024px) {
-            .container {
+        .task-progress {
+            background: rgba(45, 55, 72, 0.8);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(79, 209, 199, 0.3);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(79, 209, 199, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4fd1c7, #48bb78);
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
                 grid-template-columns: 1fr;
-                grid-template-rows: auto 1fr auto;
+                grid-template-rows: auto auto;
             }
             
-            .sidebar {
-                order: 2;
+            .chat-panel {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .agents-grid {
+                grid-template-columns: 1fr;
             }
             
-            .main-content {
-                order: 1;
+            .main-container {
+                padding: 1rem;
             }
         }
     </style>
@@ -341,82 +380,70 @@
         <h1>
             <div class="logo">🛡️</div>
             Intratech Cybersecurity Suite
+            <span style="font-size: 0.8rem; color: #a0aec0; margin-left: auto;">AI-Powered Security Operations Center</span>
         </h1>
     </header>
 
-    <div class="container">
-        <!-- Left Sidebar - Agent Status -->
-        <div class="sidebar">
-            <h3>🤖 Active Agents</h3>
-            <div class="connection-status">
-                <div class="connection-indicator" id="connectionIndicator"></div>
-                <span id="connectionStatus">Connected</span>
-            </div>
-            <div id="agentsList"></div>
+    <div class="connection-status">
+        <div class="status-indicator status-active" id="connectionIndicator"></div>
+        <span id="connectionStatus">Connected</span>
+    </div>
+
+    <div class="main-container">
+        <div class="agents-section">
+            <h2 style="margin-bottom: 1.5rem; color: #4fd1c7;">🤖 Cybersecurity Agents</h2>
+            <div class="agents-grid" id="agentsGrid"></div>
         </div>
 
-        <!-- Main Chat Area -->
-        <div class="main-content">
-            <div class="chat-container">
-                <div class="chat-messages" id="chatMessages">
-                    <div class="welcome-message">
-                        <h2>Welcome to Intratech Cybersecurity Suite</h2>
-                        <p>Your AI-powered security operations center is ready. Start by asking any cybersecurity question or requesting an analysis.</p>
+        <div class="chat-panel">
+            <div class="chat-header">
+                <div class="selected-agent-info" id="selectedAgentInfo">
+                    <i class="fas fa-robot" style="font-size: 1.5rem; color: #4fd1c7;"></i>
+                    <div>
+                        <div style="font-weight: 600;">Select an Agent</div>
+                        <div style="font-size: 0.9rem; color: #a0aec0;">Choose an agent to start interaction</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message system">
+                    <div class="message-header">System • Welcome</div>
+                    <div>
+                        <h3>🛡️ Welcome to Intratech Cybersecurity Suite</h3>
+                        <p>Your AI-powered security operations center is ready.</p>
                         <br>
-                        <p><strong>Example queries:</strong></p>
-                        <p>• "Scan 192.168.1.1 for vulnerabilities"</p>
-                        <p>• "Check IOC: 192.168.1.100"</p>
-                        <p>• "Report a security incident"</p>
-                        <p>• "What can you help me with?"</p>
+                        <p><strong>How to use:</strong></p>
+                        <p>1. Click on any agent card to select it</p>
+                        <p>2. Choose a task from the dropdown menu</p>
+                        <p>3. Click "Execute Task" or chat directly</p>
+                        <br>
+                        <p><strong>Available Agents:</strong> Threat Intelligence, Vulnerability Scanner, Penetration Testing, Incident Response, OSINT, Malware Analysis, Network Security, Compliance, Forensics</p>
                     </div>
-                </div>
-                
-                <div class="typing-indicator" id="typingIndicator">
-                    <span>Agent is thinking</span>
-                    <div class="typing-dots">
-                        <div class="typing-dot"></div>
-                        <div class="typing-dot"></div>
-                        <div class="typing-dot"></div>
-                    </div>
-                </div>
-
-                <div class="input-container">
-                    <input 
-                        type="text" 
-                        id="messageInput" 
-                        class="input-field" 
-                        placeholder="Ask me anything about cybersecurity..."
-                        maxlength="1000"
-                    >
-                    <button id="sendButton" class="send-button">Send</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Sidebar - System Metrics -->
-        <div class="sidebar">
-            <h3>📊 System Metrics</h3>
-            <div class="metrics-card">
-                <div class="metric-item">
-                    <span class="metric-label">Active Agents:</span>
-                    <span class="metric-value" id="activeAgentsCount">0</span>
-                </div>
-                <div class="metric-item">
-                    <span class="metric-label">Total Tasks:</span>
-                    <span class="metric-value" id="totalTasks">0</span>
-                </div>
-                <div class="metric-item">
-                    <span class="metric-label">Completed:</span>
-                    <span class="metric-value" id="completedTasks">0</span>
-                </div>
-                <div class="metric-item">
-                    <span class="metric-label">System Status:</span>
-                    <span class="metric-value" id="systemStatus">Operational</span>
                 </div>
             </div>
             
-            <h3>🔒 Recent Activity</h3>
-            <div id="activityLog"></div>
+            <div class="typing-indicator" id="typingIndicator">
+                <span>Agent is processing</span>
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    class="input-field" 
+                    placeholder="Select an agent first, then type your message..."
+                    disabled
+                >
+                <button id="sendButton" class="send-button" disabled>
+                    <i class="fas fa-paper-plane"></i> Send
+                </button>
+            </div>
         </div>
     </div>
 
@@ -435,15 +462,24 @@
                     reconnectionAttempts: 5,
                     maxReconnectionAttempts: 5
                 });
+
+                this.selectedAgent = null;
+                this.agents = {};
+                this.userId = 'user_' + Math.random().toString(36).substr(2, 9);
+                
+                this.initializeElements();
+                this.setupEventListeners();
+                this.setupSocketListeners();
+                this.loadAgents();
+            }
+
+            initializeElements() {
                 this.messageInput = document.getElementById('messageInput');
                 this.sendButton = document.getElementById('sendButton');
                 this.chatMessages = document.getElementById('chatMessages');
                 this.typingIndicator = document.getElementById('typingIndicator');
-                this.agentsList = document.getElementById('agentsList');
-                this.userId = 'user_' + Math.random().toString(36).substr(2, 9);
-                
-                this.setupEventListeners();
-                this.setupSocketListeners();
+                this.agentsGrid = document.getElementById('agentsGrid');
+                this.selectedAgentInfo = document.getElementById('selectedAgentInfo');
             }
 
             setupEventListeners() {
@@ -457,6 +493,7 @@
                 this.socket.on('connect', () => {
                     this.updateConnectionStatus(true);
                     this.addSystemMessage('Connected to Intratech Cybersecurity Suite');
+                    this.loadAgents();
                 });
 
                 this.socket.on('disconnect', () => {
@@ -464,13 +501,9 @@
                     this.addSystemMessage('Disconnected from server');
                 });
 
-                this.socket.on('connected', (data) => {
-                    console.log('Connected:', data);
-                });
-
                 this.socket.on('chat_response', (data) => {
                     this.hideTypingIndicator();
-                    this.addMessage(data.response, 'agent');
+                    this.addMessage(data.response, 'agent', this.selectedAgent?.name || 'Agent');
                     this.enableInput();
                 });
 
@@ -478,12 +511,10 @@
                     this.updateAgentStatus(data);
                 });
 
-                this.socket.on('agent_status_update', (data) => {
-                    this.updateAgentStatus(data);
-                });
-
                 this.socket.on('task_response', (data) => {
-                    console.log('Task response:', data);
+                    this.hideTypingIndicator();
+                    this.addMessage(`Task executed: ${data.task_type}\nStatus: ${data.status}`, 'agent', this.selectedAgent?.name || 'Agent');
+                    this.enableInput();
                 });
 
                 this.socket.on('error', (error) => {
@@ -493,7 +524,270 @@
                 });
             }
 
+            async loadAgents() {
+                try {
+                    const response = await fetch('/api/agents');
+                    const agents = await response.json();
+                    this.agents = agents;
+                    this.renderAgents();
+                } catch (error) {
+                    console.error('Failed to load agents:', error);
+                    this.addSystemMessage('Failed to load agents');
+                }
+            }
+
+            renderAgents() {
+                this.agentsGrid.innerHTML = '';
+                
+                const agentConfigs = {
+                    threat_intelligence: {
+                        icon: 'fas fa-shield-virus',
+                        description: 'Analyzes threats, IOCs, and threat actor intelligence',
+                        tasks: [
+                            'Analyze IP address for threats',
+                            'Check domain reputation',
+                            'Investigate file hash',
+                            'Research threat actor',
+                            'IOC correlation analysis',
+                            'Threat hunting query'
+                        ]
+                    },
+                    vulnerability_scanner: {
+                        icon: 'fas fa-bug',
+                        description: 'Scans for vulnerabilities and security weaknesses',
+                        tasks: [
+                            'Scan IP range for vulnerabilities',
+                            'Web application security scan',
+                            'Network port scan',
+                            'SSL/TLS configuration check',
+                            'CVE lookup and analysis',
+                            'Security configuration audit'
+                        ]
+                    },
+                    penetration_testing: {
+                        icon: 'fas fa-user-ninja',
+                        description: 'Performs security testing and attack simulation',
+                        tasks: [
+                            'Reconnaissance on target',
+                            'Vulnerability exploitation test',
+                            'Social engineering assessment',
+                            'Wireless security testing',
+                            'Web application penetration test',
+                            'Network security assessment'
+                        ]
+                    },
+                    incident_response: {
+                        icon: 'fas fa-exclamation-triangle',
+                        description: 'Handles security incidents and emergency response',
+                        tasks: [
+                            'Analyze security incident',
+                            'Containment strategy planning',
+                            'Forensic evidence collection',
+                            'Impact assessment',
+                            'Recovery planning',
+                            'Incident documentation'
+                        ]
+                    },
+                    osint: {
+                        icon: 'fas fa-search',
+                        description: 'Conducts open source intelligence gathering',
+                        tasks: [
+                            'Domain intelligence gathering',
+                            'Social media investigation',
+                            'Email address investigation',
+                            'Company information research',
+                            'Breach database lookup',
+                            'Dark web monitoring'
+                        ]
+                    },
+                    malware_analysis: {
+                        icon: 'fas fa-virus',
+                        description: 'Analyzes malicious files and software',
+                        tasks: [
+                            'Static malware analysis',
+                            'Dynamic behavior analysis',
+                            'File hash reputation check',
+                            'Sandbox analysis request',
+                            'Malware family identification',
+                            'IOC extraction from sample'
+                        ]
+                    },
+                    network_security: {
+                        icon: 'fas fa-network-wired',
+                        description: 'Monitors network traffic and security',
+                        tasks: [
+                            'Network traffic analysis',
+                            'Intrusion detection analysis',
+                            'Firewall log review',
+                            'Network anomaly detection',
+                            'Bandwidth usage analysis',
+                            'Network topology mapping'
+                        ]
+                    },
+                    compliance: {
+                        icon: 'fas fa-clipboard-check',
+                        description: 'Checks regulatory compliance and policies',
+                        tasks: [
+                            'SOC 2 compliance check',
+                            'GDPR compliance assessment',
+                            'HIPAA security evaluation',
+                            'PCI DSS compliance scan',
+                            'ISO 27001 gap analysis',
+                            'Security policy review'
+                        ]
+                    },
+                    forensics: {
+                        icon: 'fas fa-fingerprint',
+                        description: 'Performs digital forensics and investigation',
+                        tasks: [
+                            'Digital evidence analysis',
+                            'Timeline reconstruction',
+                            'File system analysis',
+                            'Memory dump analysis',
+                            'Network forensics',
+                            'Mobile device forensics'
+                        ]
+                    }
+                };
+
+                Object.entries(this.agents).forEach(([agentId, agent]) => {
+                    if (agentId === 'coordinator') return; // Skip coordinator in main grid
+                    
+                    const config = agentConfigs[agentId] || {
+                        icon: 'fas fa-robot',
+                        description: 'Specialized cybersecurity agent',
+                        tasks: ['General security analysis', 'Custom task execution']
+                    };
+
+                    const agentCard = this.createAgentCard(agentId, agent, config);
+                    this.agentsGrid.appendChild(agentCard);
+                });
+            }
+
+            createAgentCard(agentId, agent, config) {
+                const card = document.createElement('div');
+                card.className = 'agent-card';
+                card.dataset.agentId = agentId;
+
+                const capabilities = ['AI Analysis', 'Real-time Processing', 'Automated Response', 'Threat Detection'];
+
+                card.innerHTML = `
+                    <div class="agent-header">
+                        <div class="agent-info">
+                            <i class="${config.icon} agent-icon"></i>
+                            <div>
+                                <div class="agent-name">${agent.name}</div>
+                                <div class="agent-status">
+                                    <div class="status-indicator status-${agent.status}"></div>
+                                    ${agent.status.toUpperCase()}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-description">${config.description}</div>
+                    <div class="agent-capabilities">
+                        ${capabilities.map(cap => `<span class="capability-tag">${cap}</span>`).join('')}
+                    </div>
+                    <div class="task-selector">
+                        <select class="task-dropdown" id="task-${agentId}">
+                            <option value="">Select a task...</option>
+                            ${config.tasks.map(task => `<option value="${task}">${task}</option>`).join('')}
+                        </select>
+                        <button class="execute-btn" onclick="cybersecuritySuite.executeTask('${agentId}')">
+                            <i class="fas fa-play"></i> Execute Task
+                        </button>
+                    </div>
+                `;
+
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('.task-selector')) {
+                        this.selectAgent(agentId, agent, config);
+                    }
+                });
+
+                return card;
+            }
+
+            selectAgent(agentId, agent, config) {
+                // Remove previous selection
+                document.querySelectorAll('.agent-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+
+                // Select new agent
+                const selectedCard = document.querySelector(`[data-agent-id="${agentId}"]`);
+                selectedCard.classList.add('selected');
+
+                this.selectedAgent = { id: agentId, ...agent, config };
+
+                // Update chat header
+                this.selectedAgentInfo.innerHTML = `
+                    <i class="${config.icon}" style="font-size: 1.5rem; color: #4fd1c7;"></i>
+                    <div>
+                        <div style="font-weight: 600;">${agent.name}</div>
+                        <div style="font-size: 0.9rem; color: #a0aec0;">${config.description}</div>
+                    </div>
+                `;
+
+                // Enable input
+                this.messageInput.disabled = false;
+                this.sendButton.disabled = false;
+                this.messageInput.placeholder = `Chat with ${agent.name}...`;
+                this.messageInput.focus();
+
+                this.addSystemMessage(`Selected ${agent.name}. You can now chat or execute tasks.`);
+            }
+
+            executeTask(agentId) {
+                const taskSelect = document.getElementById(`task-${agentId}`);
+                const selectedTask = taskSelect.value;
+
+                if (!selectedTask) {
+                    alert('Please select a task first');
+                    return;
+                }
+
+                this.selectAgent(agentId, this.agents[agentId], this.getAgentConfig(agentId));
+                
+                this.showTypingIndicator();
+                this.disableInput();
+
+                // Send task execution request
+                this.socket.emit('execute_task', {
+                    agent_type: agentId,
+                    task_type: 'execute_predefined_task',
+                    parameters: {
+                        task_description: selectedTask,
+                        user_id: this.userId
+                    },
+                    user_id: this.userId
+                });
+
+                this.addMessage(`Executing task: ${selectedTask}`, 'user');
+                taskSelect.value = ''; // Reset selection
+            }
+
+            getAgentConfig(agentId) {
+                const configs = {
+                    threat_intelligence: { icon: 'fas fa-shield-virus' },
+                    vulnerability_scanner: { icon: 'fas fa-bug' },
+                    penetration_testing: { icon: 'fas fa-user-ninja' },
+                    incident_response: { icon: 'fas fa-exclamation-triangle' },
+                    osint: { icon: 'fas fa-search' },
+                    malware_analysis: { icon: 'fas fa-virus' },
+                    network_security: { icon: 'fas fa-network-wired' },
+                    compliance: { icon: 'fas fa-clipboard-check' },
+                    forensics: { icon: 'fas fa-fingerprint' }
+                };
+                return configs[agentId] || { icon: 'fas fa-robot' };
+            }
+
             sendMessage() {
+                if (!this.selectedAgent) {
+                    alert('Please select an agent first');
+                    return;
+                }
+
                 const message = this.messageInput.value.trim();
                 if (!message) return;
 
@@ -503,27 +797,26 @@
 
                 this.socket.emit('chat_message', {
                     user_id: this.userId,
-                    message: message
+                    message: message,
+                    agent_type: this.selectedAgent.id
                 });
 
                 this.messageInput.value = '';
             }
 
-            addMessage(content, type) {
+            addMessage(content, type, agentName = '') {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${type}`;
                 
                 const timestamp = new Date().toLocaleTimeString();
+                const sender = type === 'user' ? 'You' : (agentName || 'Agent');
+                
                 const header = document.createElement('div');
                 header.className = 'message-header';
-                header.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} • ${timestamp}`;
+                header.textContent = `${sender} • ${timestamp}`;
                 
                 const contentDiv = document.createElement('div');
-                contentDiv.className = 'message-content';
-                
-                // Convert markdown-like formatting to HTML
-                const formattedContent = this.formatMessage(content);
-                contentDiv.innerHTML = formattedContent;
+                contentDiv.innerHTML = this.formatMessage(content);
                 
                 messageDiv.appendChild(header);
                 messageDiv.appendChild(contentDiv);
@@ -537,7 +830,6 @@
             }
 
             formatMessage(content) {
-                // Basic markdown-like formatting
                 return content
                     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\*(.*?)\*/g, '<em>$1</em>')
@@ -559,9 +851,11 @@
             }
 
             enableInput() {
-                this.messageInput.disabled = false;
-                this.sendButton.disabled = false;
-                this.messageInput.focus();
+                if (this.selectedAgent) {
+                    this.messageInput.disabled = false;
+                    this.sendButton.disabled = false;
+                    this.messageInput.focus();
+                }
             }
 
             scrollToBottom() {
@@ -573,55 +867,24 @@
                 const status = document.getElementById('connectionStatus');
                 
                 if (connected) {
-                    indicator.className = 'connection-indicator';
+                    indicator.className = 'status-indicator status-active';
                     status.textContent = 'Connected';
                 } else {
-                    indicator.style.backgroundColor = '#f56565';
-                    indicator.style.animation = 'none';
+                    indicator.className = 'status-indicator status-inactive';
                     status.textContent = 'Disconnected';
                 }
             }
 
             updateAgentStatus(agentData) {
-                this.agentsList.innerHTML = '';
-                let activeAgents = 0;
-                let totalTasks = 0;
-                let completedTasks = 0;
-
-                Object.entries(agentData).forEach(([agentId, agent]) => {
-                    const agentCard = document.createElement('div');
-                    agentCard.className = `agent-card ${agent.status}`;
-                    
-                    const statusClass = `status-${agent.status}`;
-                    
-                    agentCard.innerHTML = `
-                        <div class="agent-name">
-                            <span class="status-indicator ${statusClass}"></span>
-                            ${agent.name}
-                        </div>
-                        <div class="agent-status">
-                            ${agent.status.toUpperCase()} • ${agent.active_tasks} tasks
-                        </div>
-                    `;
-                    
-                    this.agentsList.appendChild(agentCard);
-                    
-                    if (agent.status === 'active' || agent.status === 'busy') {
-                        activeAgents++;
-                    }
-                    totalTasks += agent.active_tasks;
-                });
-
-                // Update metrics
-                document.getElementById('activeAgentsCount').textContent = activeAgents;
-                document.getElementById('totalTasks').textContent = totalTasks;
-                document.getElementById('completedTasks').textContent = completedTasks;
+                this.agents = agentData;
+                this.renderAgents();
             }
         }
 
-        // Initialize the application when the page loads
+        // Initialize the application
+        let cybersecuritySuite;
         document.addEventListener('DOMContentLoaded', () => {
-            new CybersecuritySuite();
+            cybersecuritySuite = new CybersecuritySuite();
         });
     </script>
 </body>
