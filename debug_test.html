@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Test - Agents Loading</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a202c; color: white; }
+        .agent-card { background: #2d3748; padding: 15px; margin: 10px; border-radius: 8px; }
+        .debug-info { background: #4a5568; padding: 10px; margin: 10px 0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Debug Test - Agent Loading</h1>
+    <div id="debug-info" class="debug-info">Loading...</div>
+    <div id="agents-container"></div>
+
+    <script>
+        console.log('Debug script starting...');
+        
+        async function testAgentsAPI() {
+            const debugDiv = document.getElementById('debug-info');
+            const agentsContainer = document.getElementById('agents-container');
+            
+            try {
+                debugDiv.innerHTML = 'Fetching agents...';
+                console.log('Fetching agents from /api/agents');
+                
+                const response = await fetch('/api/agents');
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const agents = await response.json();
+                console.log('Agents received:', agents);
+                
+                debugDiv.innerHTML = `Successfully loaded ${Object.keys(agents).length} agents`;
+                
+                // Display agents
+                Object.entries(agents).forEach(([agentId, agent]) => {
+                    if (agentId === 'coordinator') return;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'agent-card';
+                    card.innerHTML = `
+                        <h3>${agent.name}</h3>
+                        <p>Status: ${agent.status}</p>
+                        <p>Active Tasks: ${agent.active_tasks}</p>
+                        <p>Last Activity: ${agent.last_activity}</p>
+                    `;
+                    agentsContainer.appendChild(card);
+                });
+                
+            } catch (error) {
+                console.error('Error loading agents:', error);
+                debugDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+        
+        // Run test when page loads
+        document.addEventListener('DOMContentLoaded', testAgentsAPI);
+    </script>
+</body>
+</html>
