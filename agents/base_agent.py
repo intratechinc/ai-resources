@@ -22,6 +22,12 @@ from config import Config
 from utils.logger import setup_logger
 from database import db, log_agent_activity, AgentStatus, TaskStatus
 
+# Import will be added after tools.py is created
+try:
+    from agents.tools import cybersec_tools
+except ImportError:
+    cybersec_tools = None
+
 class TaskPriority(Enum):
     """Task priority levels"""
     LOW = 1
@@ -323,22 +329,59 @@ class BaseAgent(ABC):
         if len(self.conversation_history[user_id]) > 50:
             self.conversation_history[user_id] = self.conversation_history[user_id][-50:]
     
-    def handle_chat_message(self, user_id: str, message: str) -> str:
-        """Handle incoming chat message"""
+    def execute_tool(self, tool_name: str, **kwargs) -> Dict[str, Any]:
+        """Execute a cybersecurity tool"""
+        if not cybersec_tools:
+            return {"error": "Cybersecurity tools not available"}
+        
         try:
-            # Get conversation context
-            history = self.get_conversation_history(user_id)
-            context = {
-                'user_id': user_id,
-                'conversation_history': history[-5:] if history else [],  # Last 5 messages
-                'agent_capabilities': self.capabilities
-            }
+            tool_method = getattr(cybersec_tools, tool_name, None)
+            if not tool_method:
+                return {"error": f"Tool '{tool_name}' not found"}
+            
+            result = tool_method(**kwargs)
+            
+            # Log tool usage
+            self.logger.info(f"Executed tool: {tool_name}", kwargs=kwargs)
+            
+            return result
+            
+        except Exception as e:
+            self.logger.error(f"Error executing tool {tool_name}: {str(e)}")
+            return {"error": f"Tool execution failed: {str(e)}"}
+    
+    def get_available_tools(self) -> List[str]:
+        """Get list of available cybersecurity tools"""
+        if not cybersec_tools:
+            return []
+        
+        tools = []
+        for attr_name in dir(cybersec_tools):
+            if not attr_name.startswith('_') and callable(getattr(cybersec_tools, attr_name)):
+                tools.append(attr_name)
+        
+        return tools
+    
+    def process_query(self, query: str, user_id: str = None) -> str:
+        """Process a query and return a response - used by the UI"""
+        try:
+            # Get conversation context if user_id provided
+            context = {}
+            if user_id:
+                history = self.get_conversation_history(user_id)
+                context = {
+                    'user_id': user_id,
+                    'conversation_history': history[-5:] if history else [],
+                    'agent_capabilities': self.capabilities,
+                    'available_tools': self.get_available_tools()
+                }
             
             # Process the message
-            response = self.process_message(message, context)
+            response = self.process_message(query, context)
             
-            # Add to conversation history
-            self.add_to_conversation_history(user_id, message, response)
+            # Add to conversation history if user_id provided
+            if user_id:
+                self.add_to_conversation_history(user_id, query, response)
             
             # Update activity
             self.last_activity = datetime.now()
@@ -346,8 +389,12 @@ class BaseAgent(ABC):
             return response
             
         except Exception as e:
-            self.logger.error(f"Error handling chat message: {str(e)}")
-            return f"I encountered an error while processing your message: {str(e)}"
+            self.logger.error(f"Error processing query: {str(e)}")
+            return f"I encountered an error while processing your request: {str(e)}"
+
+    def handle_chat_message(self, user_id: str, message: str) -> str:
+        """Handle incoming chat message - legacy method"""
+        return self.process_query(message, user_id)
     
     def get_agent_info(self) -> Dict[str, Any]:
         """Get comprehensive agent information"""
