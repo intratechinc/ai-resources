@@ -425,7 +425,16 @@
     <script>
         class CybersecuritySuite {
             constructor() {
-                this.socket = io();
+                this.socket = io({
+                    transports: ['polling', 'websocket'],
+                    upgrade: true,
+                    timeout: 20000,
+                    forceNew: false,
+                    reconnection: true,
+                    reconnectionDelay: 1000,
+                    reconnectionAttempts: 5,
+                    maxReconnectionAttempts: 5
+                });
                 this.messageInput = document.getElementById('messageInput');
                 this.sendButton = document.getElementById('sendButton');
                 this.chatMessages = document.getElementById('chatMessages');
