@@ -23,7 +23,7 @@ def check_dependencies():
     """Check if required packages are installed"""
     required_packages = [
         'flask', 'flask-socketio', 'requests', 'openai', 
-        'langchain', 'rich', 'colorama', 'pandas'
+        'langchain_openai', 'langchain_core', 'rich', 'colorama', 'pandas'
     ]
     
     missing_packages = []

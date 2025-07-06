@@ -7,11 +7,12 @@ python-socketio==5.10.0
 eventlet==0.33.3
 
 # AI/ML Dependencies
-openai==1.40.0
+openai==1.93.0
 anthropic==0.34.0
-langchain==0.2.16
-langchain-community==0.2.12
-langchain-openai==0.1.23
+langchain==0.3.26
+langchain-community==0.3.27
+langchain-openai==0.3.27
+langchain-core==0.3.68
 crewai==0.41.1
 autogen-agentchat==0.2.36
 
