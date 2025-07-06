@@ -40,7 +40,8 @@ CORS(app)
 logger = setup_logger('intratech_cybersecurity', app.config['LOG_LEVEL'])
 
 # Initialize database
-init_db(app)
+with app.app_context():
+    init_db(app)
 
 class CybersecuritySuite:
     """Main cybersecurity suite orchestrator"""
@@ -49,7 +50,9 @@ class CybersecuritySuite:
         self.agents = {}
         self.active_tasks = {}
         self.chat_sessions = {}
-        self.initialize_agents()
+        # Initialize agents within app context
+        with app.app_context():
+            self.initialize_agents()
         
     def initialize_agents(self):
         """Initialize all cybersecurity agents"""
@@ -84,8 +87,8 @@ class CybersecuritySuite:
         for agent_name, agent in self.agents.items():
             status[agent_name] = {
                 'name': agent.name,
-                'status': agent.status,
-                'last_activity': agent.last_activity,
+                'status': agent.status.value if hasattr(agent.status, 'value') else str(agent.status),
+                'last_activity': agent.last_activity.isoformat() if hasattr(agent.last_activity, 'isoformat') else str(agent.last_activity),
                 'active_tasks': len(agent.active_tasks) if hasattr(agent, 'active_tasks') else 0
             }
         return status
@@ -106,20 +109,24 @@ class CybersecuritySuite:
     def log_chat_interaction(self, user_id, message, response):
         """Log chat interaction to database"""
         try:
-            log_entry = AgentLog(
-                agent_name='chat_interface',
-                user_id=user_id,
-                message=message,
-                response=response,
-                timestamp=datetime.now()
-            )
-            # Save to database (implement database save logic)
-            logger.info(f"Logged chat interaction for user {user_id}")
+            with app.app_context():
+                from database import db
+                log_entry = AgentLog(
+                    agent_name='chat_interface',
+                    user_id=user_id,
+                    message=message,
+                    response=response,
+                    timestamp=datetime.now()
+                )
+                db.session.add(log_entry)
+                db.session.commit()
+                logger.info(f"Logged chat interaction for user {user_id}")
         except Exception as e:
             logger.error(f"Failed to log chat interaction: {e}")
 
-# Initialize the cybersecurity suite
-cyber_suite = CybersecuritySuite()
+# Initialize the cybersecurity suite within app context
+with app.app_context():
+    cyber_suite = CybersecuritySuite()
 
 # WebSocket event handlers
 @socketio.on('connect')
@@ -218,8 +225,8 @@ def get_agent_info(agent_type):
         'name': agent.name,
         'description': agent.description,
         'capabilities': agent.capabilities,
-        'status': agent.status,
-        'last_activity': agent.last_activity
+        'status': agent.status.value if hasattr(agent.status, 'value') else str(agent.status),
+        'last_activity': agent.last_activity.isoformat() if hasattr(agent.last_activity, 'isoformat') else str(agent.last_activity)
     })
 
 @app.route('/api/security-events')

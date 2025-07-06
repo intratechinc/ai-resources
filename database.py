@@ -51,7 +51,7 @@ class AgentLog(db.Model):
     status = db.Column(db.Enum(TaskStatus), default=TaskStatus.PENDING)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     execution_time = db.Column(db.Float)  # seconds
-    metadata = db.Column(db.JSON)
+    meta_data = db.Column(db.JSON)
     
     def __repr__(self):
         return f'<AgentLog {self.agent_name}: {self.action}>'
@@ -68,7 +68,7 @@ class AgentLog(db.Model):
             'status': self.status.value if self.status else None,
             'timestamp': self.timestamp.isoformat() if self.timestamp else None,
             'execution_time': self.execution_time,
-            'metadata': self.metadata
+            'meta_data': self.meta_data
         }
 
 class SecurityEvent(db.Model):
@@ -356,7 +356,7 @@ class ForensicEvidence(db.Model):
     chain_of_custody = db.Column(db.JSON)
     analysis_results = db.Column(db.JSON)
     keywords = db.Column(db.JSON)
-    metadata = db.Column(db.JSON)
+    meta_data = db.Column(db.JSON)
     integrity_verified = db.Column(db.Boolean, default=False)
     
     def __repr__(self):
@@ -377,7 +377,7 @@ class ForensicEvidence(db.Model):
             'chain_of_custody': self.chain_of_custody,
             'analysis_results': self.analysis_results,
             'keywords': self.keywords,
-            'metadata': self.metadata,
+            'meta_data': self.meta_data,
             'integrity_verified': self.integrity_verified
         }
 
