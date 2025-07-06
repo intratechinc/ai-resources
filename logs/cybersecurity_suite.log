@@ -662,3 +662,132 @@ nsics Agent
 2025-07-06 00:04:07,441 - agent_compliance_agent - INFO - info:109 - Starting autonomous monitoring for Compliance Agent
 2025-07-06 00:04:07,442 - agent_forensics_agent - INFO - info:109 - Starting autonomous monitoring for Forensics Agent
 2025-07-06 00:04:07,442 - intratech_cybersecurity - INFO - info:109 - Initialized 10 cybersecurity agents
+2025-07-06 00:05:38,495 - intratech_cybersecurity - INFO - info:109 - Initializing Intratech Cybersecurity Suite Agents...
+2025-07-06 00:05:39,721 - agent_coordinator - INFO - info:109 - Agent Coordinator initialized successfully
+2025-07-06 00:05:39,724 - agent_coordinator - INFO - info:109 - Coordinator Agent initialized with agent routing capabilities
+2025-07-06 00:05:39,751 - agent_threat_intelligence_agent - INFO - info:109 - Agent Threat Intelligence Agent initialized successfully
+2025-07-06 00:05:39,754 - agent_threat_intelligence_agent - INFO - info:109 - Threat Intelligence Agent initialized
+2025-07-06 00:05:39,780 - agent_vulnerability_scanner_agent - INFO - info:109 - Agent Vulnerability Scanner Agent initialized successfully
+2025-07-06 00:05:39,783 - agent_vulnerability_scanner_agent - INFO - info:109 - Vulnerability Scanner Agent initialized
+2025-07-06 00:05:39,799 - agent_penetration_testing_agent - INFO - info:109 - Agent Penetration Testing Agent initialized successfully
+2025-07-06 00:05:39,815 - agent_incident_response_agent - INFO - info:109 - Agent Incident Response Agent initialized successfully
+2025-07-06 00:05:39,817 - agent_incident_response_agent - INFO - info:109 - Incident Response Agent initialized
+2025-07-06 00:05:39,846 - agent_osint_agent - INFO - info:109 - Agent OSINT Agent initialized successfully
+2025-07-06 00:05:39,868 - agent_malware_analysis_agent - INFO - info:109 - Agent Malware Analysis Agent initialized successfully
+2025-07-06 00:05:39,883 - agent_network_security_agent - INFO - info:109 - Agent Network Security Agent initialized successfully
+2025-07-06 00:05:39,899 - agent_compliance_agent - INFO - info:109 - Agent Compliance Agent initialized successfully
+2025-07-06 00:05:39,913 - agent_forensics_agent - INFO - info:109 - Agent Forensics Agent initialized successfully
+2025-07-06 00:05:39,916 - agent_threat_intelligence_agent - INFO - info:109 - Starting autonomous monitoring for Threat Intelligence Agent
+2025-07-06 00:05:39,919 - agent_vulnerability_scanner_agent - INFO - info:109 - Starting autonomous monitoring for Vulnerability Scanner Agent
+2025-07-06 00:05:39,919 - agent_penetration_testing_agent - INFO - info:109 - Starting autonomous monitoring for Penetration Testing Agent
+2025-07-06 00:05:39,923 - agent_incident_response_agent - INFO - info:109 - Starting autonomous monitoring for Incident Response Agent
+2025-07-06 00:05:39,923 - agent_osint_agent - INFO - info:109 - Starting autonomous monitoring for OSINT Agent
+2025-07-06 00:05:39,927 - agent_malware_analysis_agent - INFO - info:109 - Starting autonomous monitoring for Malware Analysis Agent
+2025-07-06 00:05:39,930 - agent_network_security_agent - INFO - info:109 - Starting autonomous monitoring for Network Security Agent
+2025-07-06 00:05:39,930 - agent_compliance_agent - INFO - info:109 - Starting autonomous monitoring for Compliance Agent
+2025-07-06 00:05:39,935 - intratech_cybersecurity - INFO - info:109 - Initialized 10 cybersecurity agents
+nsics Agent
+2025-07-06 00:06:54,351 - intratech_cybersecurity - INFO - info:109 - Initializing Intratech Cybersecurity Suite Agents...
+2025-07-06 00:06:55,579 - agent_coordinator - INFO - info:109 - Agent Coordinator initialized successfully
+2025-07-06 00:06:55,582 - agent_coordinator - INFO - info:109 - Coordinator Agent initialized with agent routing capabilities
+2025-07-06 00:06:55,603 - agent_threat_intelligence_agent - INFO - info:109 - Agent Threat Intelligence Agent initialized successfully
+2025-07-06 00:06:55,607 - agent_threat_intelligence_agent - INFO - info:109 - Threat Intelligence Agent initialized
+2025-07-06 00:06:55,621 - agent_vulnerability_scanner_agent - INFO - info:109 - Agent Vulnerability Scanner Agent initialized successfully
+2025-07-06 00:06:55,625 - agent_vulnerability_scanner_agent - INFO - info:109 - Vulnerability Scanner Agent initialized
+2025-07-06 00:06:55,646 - agent_penetration_testing_agent - INFO - info:109 - Agent Penetration Testing Agent initialized successfully
+2025-07-06 00:06:55,661 - agent_incident_response_agent - INFO - info:109 - Agent Incident Response Agent initialized successfully
+2025-07-06 00:06:55,664 - agent_incident_response_agent - INFO - info:109 - Incident Response Agent initialized
+2025-07-06 00:06:55,678 - agent_osint_agent - INFO - info:109 - Agent OSINT Agent initialized successfully
+2025-07-06 00:06:55,699 - agent_malware_analysis_agent - INFO - info:109 - Agent Malware Analysis Agent initialized successfully
+2025-07-06 00:06:55,722 - agent_network_security_agent - INFO - info:109 - Agent Network Security Agent initialized successfully
+2025-07-06 00:06:55,739 - agent_compliance_agent - INFO - info:109 - Agent Compliance Agent initialized successfully
+2025-07-06 00:06:55,760 - agent_forensics_agent - INFO - info:109 - Agent Forensics Agent initialized successfully
+2025-07-06 00:06:55,763 - agent_coordinator - INFO - info:109 - Starting autonomous monitoring for Coordinator
+2025-07-06 00:06:55,764 - agent_threat_intelligence_agent - INFO - info:109 - Starting autonomous monitoring for Threat Intelligence Agent
+2025-07-06 00:06:55,767 - agent_vulnerability_scanner_agent - INFO - info:109 - Starting autonomous monitoring for Vulnerability Scanner Agent
+2025-07-06 00:06:55,768 - agent_penetration_testing_agent - INFO - info:109 - Starting autonomous monitoring for Penetration Testing Agent
+2025-07-06 00:06:55,773 - agent_osint_agent - INFO - info:109 - Starting autonomous monitoring for OSINT Agent
+ncident Response Agent
+2025-07-06 00:06:55,776 - agent_malware_analysis_agent - INFO - info:109 - Starting autonomous monitoring for Malware Analysis Agent
+2025-07-06 00:06:55,779 - agent_network_security_agent - INFO - info:109 - Starting autonomous monitoring for Network Security Agent
+2025-07-06 00:06:55,781 - agent_compliance_agent - INFO - info:109 - Starting autonomous monitoring for Compliance Agent
+2025-07-06 00:06:55,782 - intratech_cybersecurity - INFO - info:109 - Initialized 10 cybersecurity agents
+nsics Agent
+2025-07-06 00:06:59,491 - intratech_cybersecurity - INFO - info:109 - Initializing Intratech Cybersecurity Suite Agents...
+2025-07-06 00:07:01,046 - agent_coordinator - INFO - info:109 - Agent Coordinator initialized successfully
+2025-07-06 00:07:01,050 - agent_coordinator - INFO - info:109 - Coordinator Agent initialized with agent routing capabilities
+2025-07-06 00:07:01,064 - agent_threat_intelligence_agent - INFO - info:109 - Agent Threat Intelligence Agent initialized successfully
+2025-07-06 00:07:01,067 - agent_threat_intelligence_agent - INFO - info:109 - Threat Intelligence Agent initialized
+2025-07-06 00:07:01,081 - agent_vulnerability_scanner_agent - INFO - info:109 - Agent Vulnerability Scanner Agent initialized successfully
+2025-07-06 00:07:01,083 - agent_vulnerability_scanner_agent - INFO - info:109 - Vulnerability Scanner Agent initialized
+2025-07-06 00:07:01,105 - agent_penetration_testing_agent - INFO - info:109 - Agent Penetration Testing Agent initialized successfully
+2025-07-06 00:07:01,133 - agent_incident_response_agent - INFO - info:109 - Agent Incident Response Agent initialized successfully
+2025-07-06 00:07:01,135 - agent_incident_response_agent - INFO - info:109 - Incident Response Agent initialized
+2025-07-06 00:07:01,149 - agent_osint_agent - INFO - info:109 - Agent OSINT Agent initialized successfully
+2025-07-06 00:07:01,169 - agent_malware_analysis_agent - INFO - info:109 - Agent Malware Analysis Agent initialized successfully
+2025-07-06 00:07:01,203 - agent_network_security_agent - INFO - info:109 - Agent Network Security Agent initialized successfully
+2025-07-06 00:07:01,230 - agent_compliance_agent - INFO - info:109 - Agent Compliance Agent initialized successfully
+2025-07-06 00:07:01,246 - agent_forensics_agent - INFO - info:109 - Agent Forensics Agent initialized successfully
+2025-07-06 00:07:01,249 - agent_coordinator - INFO - info:109 - Starting autonomous monitoring for Coordinator
+2025-07-06 00:07:01,251 - agent_threat_intelligence_agent - INFO - info:109 - Starting autonomous monitoring for Threat Intelligence Agent
+2025-07-06 00:07:01,253 - agent_vulnerability_scanner_agent - INFO - info:109 - Starting autonomous monitoring for Vulnerability Scanner Agent
+2025-07-06 00:07:01,255 - agent_penetration_testing_agent - INFO - info:109 - Starting autonomous monitoring for Penetration Testing Agent
+2025-07-06 00:07:01,257 - agent_incident_response_agent - INFO - info:109 - Starting autonomous monitoring for Incident Response Agent
+2025-07-06 00:07:01,258 - agent_osint_agent - INFO - info:109 - Starting autonomous monitoring for OSINT Agent
+2025-07-06 00:07:01,260 - agent_malware_analysis_agent - INFO - info:109 - Starting autonomous monitoring for Malware Analysis Agent
+2025-07-06 00:07:01,261 - agent_network_security_agent - INFO - info:109 - Starting autonomous monitoring for Network Security Agent
+2025-07-06 00:07:01,264 - agent_compliance_agent - INFO - info:109 - Starting autonomous monitoring for Compliance Agent
+2025-07-06 00:07:01,265 - agent_forensics_agent - INFO - info:109 - Starting autonomous monitoring for Forensics Agent
+2025-07-06 00:07:01,266 - intratech_cybersecurity - INFO - info:109 - Initialized 10 cybersecurity agents
+2025-07-06 00:18:45,101 - intratech_cybersecurity - INFO - info:109 - Initializing Intratech Cybersecurity Suite Agents...
+2025-07-06 00:18:46,120 - agent_coordinator - INFO - info:109 - Agent Coordinator initialized successfully
+2025-07-06 00:18:46,124 - agent_coordinator - INFO - info:109 - Coordinator Agent initialized with agent routing capabilities
+2025-07-06 00:18:46,143 - agent_threat_intelligence_agent - INFO - info:109 - Agent Threat Intelligence Agent initialized successfully
+2025-07-06 00:18:46,146 - agent_threat_intelligence_agent - INFO - info:109 - Threat Intelligence Agent initialized
+2025-07-06 00:18:46,168 - agent_vulnerability_scanner_agent - INFO - info:109 - Agent Vulnerability Scanner Agent initialized successfully
+2025-07-06 00:18:46,171 - agent_vulnerability_scanner_agent - INFO - info:109 - Vulnerability Scanner Agent initialized
+2025-07-06 00:18:46,187 - agent_penetration_testing_agent - INFO - info:109 - Agent Penetration Testing Agent initialized successfully
+2025-07-06 00:18:46,210 - agent_incident_response_agent - INFO - info:109 - Agent Incident Response Agent initialized successfully
+2025-07-06 00:18:46,214 - agent_incident_response_agent - INFO - info:109 - Incident Response Agent initialized
+2025-07-06 00:18:46,236 - agent_osint_agent - INFO - info:109 - Agent OSINT Agent initialized successfully
+2025-07-06 00:18:46,277 - agent_malware_analysis_agent - INFO - info:109 - Agent Malware Analysis Agent initialized successfully
+2025-07-06 00:18:46,300 - agent_network_security_agent - INFO - info:109 - Agent Network Security Agent initialized successfully
+2025-07-06 00:18:46,324 - agent_compliance_agent - INFO - info:109 - Agent Compliance Agent initialized successfully
+2025-07-06 00:18:46,348 - agent_forensics_agent - INFO - info:109 - Agent Forensics Agent initialized successfully
+2025-07-06 00:18:46,352 - agent_coordinator - INFO - info:109 - Starting autonomous monitoring for Coordinator
+2025-07-06 00:18:46,354 - agent_threat_intelligence_agent - INFO - info:109 - Starting autonomous monitoring for Threat Intelligence Agent
+2025-07-06 00:18:46,357 - agent_vulnerability_scanner_agent - INFO - info:109 - Starting autonomous monitoring for Vulnerability Scanner Agent
+2025-07-06 00:18:46,359 - agent_penetration_testing_agent - INFO - info:109 - Starting autonomous monitoring for Penetration Testing Agent
+2025-07-06 00:18:46,361 - agent_incident_response_agent - INFO - info:109 - Starting autonomous monitoring for Incident Response Agent
+2025-07-06 00:18:46,363 - agent_osint_agent - INFO - info:109 - Starting autonomous monitoring for OSINT Agent
+2025-07-06 00:18:46,365 - agent_malware_analysis_agent - INFO - info:109 - Starting autonomous monitoring for Malware Analysis Agent
+2025-07-06 00:18:46,369 - agent_network_security_agent - INFO - info:109 - Starting autonomous monitoring for Network Security Agent
+2025-07-06 00:18:46,371 - agent_compliance_agent - INFO - info:109 - Starting autonomous monitoring for Compliance Agent
+2025-07-06 00:18:46,373 - agent_forensics_agent - INFO - info:109 - Starting autonomous monitoring for Forensics Agent
+2025-07-06 00:18:46,373 - intratech_cybersecurity - INFO - info:109 - Initialized 10 cybersecurity agents
+2025-07-06 00:18:49,742 - intratech_cybersecurity - INFO - info:109 - Initializing Intratech Cybersecurity Suite Agents...
+2025-07-06 00:18:50,810 - agent_coordinator - INFO - info:109 - Agent Coordinator initialized successfully
+2025-07-06 00:18:50,813 - agent_coordinator - INFO - info:109 - Coordinator Agent initialized with agent routing capabilities
+2025-07-06 00:18:50,828 - agent_threat_intelligence_agent - INFO - info:109 - Agent Threat Intelligence Agent initialized successfully
+2025-07-06 00:18:50,830 - agent_threat_intelligence_agent - INFO - info:109 - Threat Intelligence Agent initialized
+2025-07-06 00:18:50,864 - agent_vulnerability_scanner_agent - INFO - info:109 - Agent Vulnerability Scanner Agent initialized successfully
+2025-07-06 00:18:50,868 - agent_vulnerability_scanner_agent - INFO - info:109 - Vulnerability Scanner Agent initialized
+2025-07-06 00:18:50,881 - agent_penetration_testing_agent - INFO - info:109 - Agent Penetration Testing Agent initialized successfully
+2025-07-06 00:18:50,895 - agent_incident_response_agent - INFO - info:109 - Agent Incident Response Agent initialized successfully
+2025-07-06 00:18:50,899 - agent_incident_response_agent - INFO - info:109 - Incident Response Agent initialized
+2025-07-06 00:18:50,923 - agent_osint_agent - INFO - info:109 - Agent OSINT Agent initialized successfully
+2025-07-06 00:18:50,940 - agent_malware_analysis_agent - INFO - info:109 - Agent Malware Analysis Agent initialized successfully
+2025-07-06 00:18:50,963 - agent_network_security_agent - INFO - info:109 - Agent Network Security Agent initialized successfully
+2025-07-06 00:18:50,984 - agent_compliance_agent - INFO - info:109 - Agent Compliance Agent initialized successfully
+2025-07-06 00:18:51,007 - agent_forensics_agent - INFO - info:109 - Agent Forensics Agent initialized successfully
+2025-07-06 00:18:51,009 - agent_coordinator - INFO - info:109 - Starting autonomous monitoring for Coordinator
+2025-07-06 00:18:51,011 - agent_threat_intelligence_agent - INFO - info:109 - Starting autonomous monitoring for Threat Intelligence Agent
+2025-07-06 00:18:51,014 - agent_vulnerability_scanner_agent - INFO - info:109 - Starting autonomous monitoring for Vulnerability Scanner Agent
+2025-07-06 00:18:51,014 - agent_penetration_testing_agent - INFO - info:109 - Starting autonomous monitoring for Penetration Testing Agent
+2025-07-06 00:18:51,017 - agent_incident_response_agent - INFO - info:109 - Starting autonomous monitoring for Incident Response Agent
+2025-07-06 00:18:51,019 - agent_osint_agent - INFO - info:109 - Starting autonomous monitoring for OSINT Agent
+2025-07-06 00:18:51,021 - agent_malware_analysis_agent - INFO - info:109 - Starting autonomous monitoring for Malware Analysis Agent
+2025-07-06 00:18:51,022 - agent_network_security_agent - INFO - info:109 - Starting autonomous monitoring for Network Security Agent
+2025-07-06 00:18:51,024 - agent_compliance_agent - INFO - info:109 - Starting autonomous monitoring for Compliance Agent
+2025-07-06 00:18:51,027 - agent_forensics_agent - INFO - info:109 - Starting autonomous monitoring for Forensics Agent
+2025-07-06 00:18:51,027 - intratech_cybersecurity - INFO - info:109 - Initialized 10 cybersecurity agents
