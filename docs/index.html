@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intratech Cybersecurity Suite - Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a202c 50%, #2d3748 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(26, 32, 44, 0.95);
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #4fd1c7;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4fd1c7;
+        }
+
+        .logo {
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .demo-banner {
+            background: linear-gradient(45deg, #ed8936, #f56565);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .agent-card {
+            background: rgba(26, 32, 44, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid rgba(79, 209, 199, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-card:hover {
+            border-color: #4fd1c7;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 209, 199, 0.2);
+        }
+
+        .agent-card.selected {
+            border-color: #48bb78;
+            background: rgba(72, 187, 120, 0.1);
+        }
+
+        .agent-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .agent-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .agent-icon {
+            font-size: 2rem;
+            color: #4fd1c7;
+        }
+
+        .agent-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .agent-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #48bb78;
+            animation: pulse 2s infinite;
+        }
+
+        .agent-description {
+            color: #a0aec0;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .agent-capabilities {
+            margin-bottom: 1rem;
+        }
+
+        .capability-tag {
+            display: inline-block;
+            background: rgba(79, 209, 199, 0.2);
+            color: #4fd1c7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 0.25rem 0.25rem 0.25rem 0;
+        }
+
+        .task-selector {
+            margin-top: 1rem;
+        }
+
+        .task-dropdown {
+            width: 100%;
+            background: rgba(45, 55, 72, 0.8);
+            border: 1px solid rgba(79, 209, 199, 0.3);
+            border-radius: 6px;
+            padding: 0.5rem;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .execute-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #4fd1c7, #38b2ac);
+            border: none;
+            border-radius: 6px;
+            padding: 0.75rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .execute-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 209, 199, 0.3);
+        }
+
+        .demo-panel {
+            background: rgba(26, 32, 44, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid rgba(79, 209, 199, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 140px);
+        }
+
+        .demo-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(79, 209, 199, 0.3);
+        }
+
+        .demo-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: rgba(45, 55, 72, 0.3);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            margin: 1rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(79, 209, 199, 0.1);
+            border-radius: 4px;
+        }
+
+        .deployment-options {
+            margin: 2rem 0;
+        }
+
+        .option-card {
+            background: rgba(45, 55, 72, 0.6);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #4fd1c7;
+        }
+
+        .github-btn {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .github-btn:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+            }
+            
+            .demo-panel {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>
+            <div class="logo">🛡️</div>
+            Intratech Cybersecurity Suite
+            <span style="font-size: 0.8rem; color: #a0aec0; margin-left: auto;">Demo Version</span>
+        </h1>
+    </header>
+
+    <div class="demo-banner">
+        📖 This is a demo version showcasing the interface. For full functionality, deploy using the options below.
+    </div>
+
+    <div class="main-container">
+        <div class="agents-section">
+            <h2 style="margin-bottom: 1.5rem; color: #4fd1c7;">🤖 Cybersecurity Agents</h2>
+            <div class="agents-grid" id="agentsGrid">
+                <!-- Agents will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="demo-panel">
+            <div class="demo-header">
+                <div>
+                    <div style="font-weight: 600;">🛡️ Professional Cybersecurity Suite</div>
+                    <div style="font-size: 0.9rem; color: #a0aec0;">AI-Powered Security Operations Center</div>
+                </div>
+            </div>
+
+            <div class="demo-content">
+                <h3>🚀 Features Overview</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="fas fa-robot" style="color: #4fd1c7;"></i>
+                        <span>9 Specialized AI Cybersecurity Agents</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-tasks" style="color: #4fd1c7;"></i>
+                        <span>90+ Professional Security Tasks</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-tools" style="color: #4fd1c7;"></i>
+                        <span>20+ Integrated Security Tools</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-api" style="color: #4fd1c7;"></i>
+                        <span>Multi-API Integration (Shodan, VirusTotal, AI)</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt" style="color: #4fd1c7;"></i>
+                        <span>Real-time Threat Intelligence</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-search" style="color: #4fd1c7;"></i>
+                        <span>OSINT and Digital Investigation</span>
+                    </div>
+                </div>
+
+                <h3>🌐 Deployment Options</h3>
+                <div class="deployment-options">
+                    <div class="option-card">
+                        <h4>🚀 GitHub Codespaces (Recommended)</h4>
+                        <p>Full functionality with 60 hours/month free</p>
+                        <a href="https://github.com/intratechinc/ai-resources/codespaces" class="github-btn">
+                            <i class="fas fa-code"></i> Open in Codespaces
+                        </a>
+                    </div>
+
+                    <div class="option-card">
+                        <h4>🖥️ Local Deployment</h4>
+                        <p>Complete control with all features enabled</p>
+                        <a href="https://github.com/intratechinc/ai-resources" class="github-btn">
+                            <i class="fab fa-github"></i> Clone Repository
+                        </a>
+                    </div>
+
+                    <div class="option-card">
+                        <h4>☁️ Cloud Deployment</h4>
+                        <p>Production-ready with Vercel, Railway, or AWS</p>
+                        <a href="https://vercel.com/new/clone?repository-url=https://github.com/intratechinc/ai-resources" class="github-btn">
+                            <i class="fas fa-cloud"></i> Deploy to Vercel
+                        </a>
+                    </div>
+
+                    <div class="option-card">
+                        <h4>📱 Android Termux</h4>
+                        <p>Mobile cybersecurity operations center</p>
+                        <a href="https://github.com/intratechinc/ai-resources/blob/cursor/create-a-cybersecurity-app-37cd/README.md" class="github-btn">
+                            <i class="fas fa-mobile-alt"></i> Termux Guide
+                        </a>
+                    </div>
+                </div>
+
+                <h3>🛠️ Available Tools</h3>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="fas fa-network-wired" style="color: #4fd1c7;"></i>
+                        <span>Network Scanning (Nmap, Port Scanner)</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-bug" style="color: #4fd1c7;"></i>
+                        <span>Vulnerability Assessment (Nuclei, SSL)</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-virus" style="color: #4fd1c7;"></i>
+                        <span>Threat Intelligence (Shodan, VirusTotal)</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-globe" style="color: #4fd1c7;"></i>
+                        <span>Web Security (Headers, Directory Scan)</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-virus" style="color: #4fd1c7;"></i>
+                        <span>Malware Analysis (Hashing, Reputation)</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-search" style="color: #4fd1c7;"></i>
+                        <span>OSINT (Domain, Email, Subdomain)</span>
+                    </div>
+                </div>
+
+                <h3>📚 Documentation</h3>
+                <p>Complete setup guides and API documentation available in the repository.</p>
+                
+                <div style="margin-top: 2rem; padding: 1rem; background: rgba(237, 137, 54, 0.1); border-radius: 6px; border-left: 4px solid #ed8936;">
+                    <strong>⚠️ Demo Limitation:</strong> This GitHub Pages demo shows the interface only. 
+                    For full cybersecurity capabilities, use one of the deployment options above.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo agent data
+        const demoAgents = {
+            threat_intelligence: {
+                name: "Threat Intelligence Agent",
+                icon: "fas fa-shield-virus",
+                description: "Analyzes threats, IOCs, and threat actor intelligence using Shodan, VirusTotal, and OSINT",
+                tasks: [
+                    "Analyze IP address 8.8.8.8 for threats and geolocation",
+                    "Check domain reputation for suspicious.com",
+                    "Investigate file hash with VirusTotal lookup",
+                    "Research threat actor APT groups and TTPs",
+                    "IOC correlation analysis across multiple sources",
+                    "Threat hunting query with Shodan search",
+                    "Dark web monitoring for leaked credentials",
+                    "Malware family attribution analysis",
+                    "Threat landscape assessment report",
+                    "Cyber threat intelligence briefing"
+                ]
+            },
+            vulnerability_scanner: {
+                name: "Vulnerability Scanner Agent",
+                icon: "fas fa-bug",
+                description: "Scans for vulnerabilities using Nmap, Nuclei, SSL analyzers, and security auditing tools",
+                tasks: [
+                    "Nmap port scan on 192.168.1.0/24 network",
+                    "Nuclei vulnerability scan on https://example.com",
+                    "SSL/TLS certificate analysis and security check",
+                    "Web application security headers audit",
+                    "CVE lookup and CVSS scoring analysis",
+                    "Network service enumeration and fingerprinting",
+                    "WordPress security assessment",
+                    "Database security configuration review",
+                    "Cloud infrastructure security scan",
+                    "API endpoint security testing"
+                ]
+            },
+            penetration_testing: {
+                name: "Penetration Testing Agent",
+                icon: "fas fa-user-ninja",
+                description: "Performs ethical hacking, penetration testing, and security assessments",
+                tasks: [
+                    "Web application penetration test with SQL injection",
+                    "Network reconnaissance and enumeration",
+                    "Directory traversal and file discovery scan",
+                    "Social engineering assessment and phishing simulation",
+                    "Wireless network security testing (WPA/WEP)",
+                    "Privilege escalation testing and exploitation",
+                    "Buffer overflow and memory corruption testing",
+                    "Active Directory security assessment",
+                    "Cloud penetration testing (AWS/Azure)",
+                    "Mobile application security testing"
+                ]
+            },
+            incident_response: {
+                name: "Incident Response Agent",
+                icon: "fas fa-exclamation-triangle",
+                description: "Handles security incidents, breaches, and emergency response coordination",
+                tasks: [
+                    "Ransomware incident response and containment",
+                    "Data breach investigation and forensics",
+                    "Malware outbreak containment strategy",
+                    "DDoS attack mitigation and analysis",
+                    "Insider threat investigation",
+                    "Business continuity planning",
+                    "Evidence preservation and chain of custody",
+                    "Stakeholder communication during incidents",
+                    "Post-incident analysis and lessons learned",
+                    "Incident response playbook execution"
+                ]
+            },
+            osint: {
+                name: "OSINT Agent",
+                icon: "fas fa-search",
+                description: "Conducts open source intelligence gathering and digital investigations",
+                tasks: [
+                    "Domain and subdomain enumeration analysis",
+                    "Email address OSINT and breach database lookup",
+                    "Social media intelligence gathering",
+                    "Company and employee information research",
+                    "Dark web monitoring for stolen credentials",
+                    "Cryptocurrency transaction analysis",
+                    "Geolocation and metadata analysis",
+                    "Threat actor profiling and attribution",
+                    "Brand monitoring and impersonation detection",
+                    "Supply chain risk assessment"
+                ]
+            },
+            malware_analysis: {
+                name: "Malware Analysis Agent",
+                icon: "fas fa-virus",
+                description: "Analyzes malicious files, malware families, and threat samples",
+                tasks: [
+                    "Static malware analysis and file hashing",
+                    "Dynamic sandbox behavior analysis",
+                    "VirusTotal multi-engine malware scanning",
+                    "Malware family classification and attribution",
+                    "IOC extraction and signature generation",
+                    "Reverse engineering and code analysis",
+                    "Command and control (C2) infrastructure analysis",
+                    "Payload delivery mechanism investigation",
+                    "Ransomware strain identification",
+                    "Mobile malware analysis (APK/IPA)"
+                ]
+            },
+            network_security: {
+                name: "Network Security Agent",
+                icon: "fas fa-network-wired",
+                description: "Monitors network traffic, analyzes connections, and detects intrusions",
+                tasks: [
+                    "Network traffic analysis with packet capture",
+                    "Active network connections monitoring",
+                    "Intrusion detection system (IDS) analysis",
+                    "Firewall rule optimization and log review",
+                    "Network anomaly and DDoS detection",
+                    "Bandwidth usage and performance analysis",
+                    "Network topology discovery and mapping",
+                    "Wireless network security assessment",
+                    "VPN security configuration review",
+                    "Network segmentation effectiveness testing"
+                ]
+            },
+            compliance: {
+                name: "Compliance Agent",
+                icon: "fas fa-clipboard-check",
+                description: "Ensures regulatory compliance and security policy adherence",
+                tasks: [
+                    "SOC 2 Type II compliance assessment",
+                    "GDPR data protection compliance audit",
+                    "HIPAA security and privacy evaluation",
+                    "PCI DSS payment security compliance scan",
+                    "ISO 27001 information security gap analysis",
+                    "NIST Cybersecurity Framework assessment",
+                    "Security policy review and recommendations",
+                    "Risk assessment and mitigation planning",
+                    "Vendor security assessment questionnaire",
+                    "Regulatory reporting and documentation"
+                ]
+            },
+            forensics: {
+                name: "Forensics Agent",
+                icon: "fas fa-fingerprint",
+                description: "Performs digital forensics, evidence analysis, and cyber investigations",
+                tasks: [
+                    "Digital evidence acquisition and preservation",
+                    "File system forensics and deleted file recovery",
+                    "Memory dump analysis and volatile data extraction",
+                    "Network forensics and traffic reconstruction",
+                    "Mobile device forensics (iOS/Android)",
+                    "Timeline analysis and event correlation",
+                    "Malware forensics and reverse engineering",
+                    "Email forensics and metadata analysis",
+                    "Cloud forensics and log analysis",
+                    "Legal evidence documentation and chain of custody"
+                ]
+            }
+        };
+
+        // Render demo agents
+        function renderDemoAgents() {
+            const agentsGrid = document.getElementById('agentsGrid');
+            
+            Object.entries(demoAgents).forEach(([agentId, agent]) => {
+                const capabilities = ['AI Analysis', 'Real-time Processing', 'Automated Response', 'Threat Detection'];
+                
+                const card = document.createElement('div');
+                card.className = 'agent-card';
+                card.innerHTML = `
+                    <div class="agent-header">
+                        <div class="agent-info">
+                            <i class="${agent.icon} agent-icon"></i>
+                            <div>
+                                <div class="agent-name">${agent.name}</div>
+                                <div class="agent-status">
+                                    <div class="status-indicator"></div>
+                                    DEMO MODE
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="agent-description">${agent.description}</div>
+                    <div class="agent-capabilities">
+                        ${capabilities.map(cap => `<span class="capability-tag">${cap}</span>`).join('')}
+                    </div>
+                    <div class="task-selector">
+                        <select class="task-dropdown">
+                            <option value="">Select a task...</option>
+                            ${agent.tasks.map(task => `<option value="${task}">${task}</option>`).join('')}
+                        </select>
+                        <button class="execute-btn" onclick="showDemoMessage('${agent.name}')">
+                            <i class="fas fa-play"></i> Execute Task (Demo)
+                        </button>
+                    </div>
+                `;
+                
+                agentsGrid.appendChild(card);
+            });
+        }
+
+        function showDemoMessage(agentName) {
+            alert(`🛡️ Demo Mode\n\nThis would execute a task with ${agentName}.\n\nFor full functionality, deploy using:\n• GitHub Codespaces\n• Local deployment\n• Cloud platforms\n\nSee deployment options in the right panel.`);
+        }
+
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDemoAgents();
+        });
+    </script>
+</body>
+</html>
